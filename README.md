@@ -4,7 +4,7 @@ Fun Games Hub is an open-source collection of mini-games built with React + Vite
 
 This repository is part of Hacktoberfest 🍂, and contributions are highly encouraged! Add new games to the homepage, implement new features in existing games, or improve the overall design and interactivity.
 
-Maintainer [GauravGirkar](https://github.com/GauravGirkar)
+# Maintainer [GauravGirkar](https://github.com/GauravGirkar)
 
 # ✨ Features (Planned & Ongoing)
 - 🕹️ Mini-Games Hub – Play multiple games from a single platform
