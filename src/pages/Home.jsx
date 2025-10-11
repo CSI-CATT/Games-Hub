@@ -21,6 +21,7 @@ export default function Home() {
           to="/word-scramble" 
         />
         
+        <GameCard title="Rock Paper Scissors" desc="Classic Rock Paper Scissors game" to="/RockPaperScissors" />
       </section>
     </div>
   )
