@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import TicTacToePage from './pages/TicTacToePage'
 import MemoryPage from './pages/MemoryPage'
 import SnakePage from './pages/SnakePage'
+import WordScramblePage from './pages/WordScramblePage' // 1. IMPORT YOUR NEW PAGE
 import RockPaperScissors from './pages/RockPaperScissors'
 
 export default function App() {
@@ -17,6 +18,8 @@ export default function App() {
           <Route path="/tictactoe" element={<TicTacToePage />} />
           <Route path="/memory" element={<MemoryPage />} />
           <Route path="/snake" element={<SnakePage />} />
+          {/* 2. ADD THE ROUTE FOR YOUR GAME */}
+          <Route path="/word-scramble" element={<WordScramblePage />} /> 
           <Route path="/RockPaperScissors" element={<RockPaperScissors />} />
         </Routes>
       </main>
