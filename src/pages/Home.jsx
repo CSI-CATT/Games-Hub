@@ -13,6 +13,7 @@ export default function Home() {
         <GameCard title="Tic Tac Toe" desc="Classic 3x3 game" to="/tictactoe" />
         <GameCard title="Memory Match" desc="Flip and match pairs" to="/memory" />
         <GameCard title="Snake" desc="Classic snake game" to="/snake" />
+        <GameCard title="Rock Paper Scissors" desc="Classic Rock Paper Scissors game" to="/RockPaperScissors" />
       </section>
     </div>
   )
