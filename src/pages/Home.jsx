@@ -13,15 +13,15 @@ export default function Home() {
         <GameCard title="Tic Tac Toe" desc="Classic 3x3 game" to="/tictactoe" />
         <GameCard title="Memory Match" desc="Flip and match pairs" to="/memory" />
         <GameCard title="Snake" desc="Classic snake game" to="/snake" />
-        
-        {/* --- ADD THIS LINE FOR YOUR NEW GAME --- */}
-        <GameCard 
-          title="Word Scramble" 
-          desc="Unscramble letters to find the hidden word" 
-          to="/word-scramble" 
-        />
-        
         <GameCard title="Rock Paper Scissors" desc="Classic Rock Paper Scissors game" to="/RockPaperScissors" />
+        <GameCard title="Word Scramble" desc="Unscramble letters to find the hidden word" to="/word-scramble" />
+
+        {/* 🆕 Added Hack the Vault game card */}
+        <GameCard 
+          title="Hack the Vault 🔐"
+          desc="Generate strong passwords to unlock the vault!"
+          to="/hackthevault"
+        />
       </section>
     </div>
   )

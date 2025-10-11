@@ -7,6 +7,7 @@ import MemoryPage from './pages/MemoryPage'
 import SnakePage from './pages/SnakePage'
 import WordScramblePage from './pages/WordScramblePage' // 1. IMPORT YOUR NEW PAGE
 import RockPaperScissors from './pages/RockPaperScissors'
+import HackTheVaultPage from './pages/HackTheVaultPage'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           {/* 2. ADD THE ROUTE FOR YOUR GAME */}
           <Route path="/word-scramble" element={<WordScramblePage />} /> 
           <Route path="/RockPaperScissors" element={<RockPaperScissors />} />
+          <Route path="/hackthevault" element={<HackTheVaultPage />} />
         </Routes>
       </main>
     </div>
