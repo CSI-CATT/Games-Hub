@@ -1,0 +1,46 @@
+.vault-container {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #5a189a, #9d4edd);
+  color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  max-width: 400px;
+  margin: 2rem auto;
+}
+
+.vault-btn {
+  padding: 0.7rem 1.5rem;
+  background-color: #ffb703;
+  border: none;
+  border-radius: 10px;
+  color: #222;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.vault-btn:hover {
+  background-color: #ffd166;
+}
+
+.vault-result {
+  margin-top: 1.5rem;
+}
+
+.strength {
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+.strength.weak {
+  color: #ef476f;
+}
+
+.strength.medium {
+  color: #ffd166;
+}
+
+.strength.strong {
+  color: #06d6a0;
+}
