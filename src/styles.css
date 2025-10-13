@@ -1,36 +1,139 @@
-body {
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:#0f172a;
-  color:#f8fafc;
+/* Clean, single stylesheet for layout and components */
+:root {
+  --bg-1: #071025;
+  --bg-2: #0f172a;
+  --card-bg: rgba(255,255,255,0.02);
+  --accent: #06b6d4;
+  --accent-2: #7c3aed;
+  --muted: #bcd7ee;
 }
 
-.container { padding:20px; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  color: #e6eef8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container { padding: 20px; max-width: 1200px; margin: 0 auto; }
 
 .nav {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px 20px;
-  background:#1e293b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: rgba(30,41,59,0.6);
+  backdrop-filter: blur(6px);
 }
 
-.logo { font-weight:bold; color:#38bdf8; text-decoration:none; }
-.nav-links a { margin-left:15px; color:#f8fafc; text-decoration:none; }
-.nav-links a.active { border-bottom:2px solid #38bdf8; }
+.logo { font-weight: bold; color: #38bdf8; text-decoration: none; }
+.nav-links a { margin-left: 15px; color: #f8fafc; text-decoration: none; }
+.nav-links a.active { border-bottom: 2px solid #38bdf8; }
 
-.hero { text-align:center; margin:20px 0; }
-.games-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; }
+/* HERO */
+.hero {
+  position: relative;
+  text-align: center;
+  margin: 24px 0 36px;
+  padding: 48px 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  color: #e6f0ff;
+}
 
-.game-card { background:#1e293b; padding:15px; border-radius:8px; }
-.btn { display:inline-block; margin-top:10px; padding:6px 12px; background:#38bdf8; color:#0f172a; border-radius:6px; text-decoration:none; }
+.hero::before {
+  content: "";
+  position: absolute;
+  left: -10%;
+  top: -30%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 20%, var(--accent-2)66 0%, transparent 30%), radial-gradient(circle at 80% 80%, var(--accent)aa 0%, transparent 30%);
+  transform: rotate(-10deg);
+  filter: blur(42px) saturate(120%);
+  z-index: 0;
+  pointer-events: none;
+}
 
-.board { display:grid; grid-template-columns:repeat(3,80px); gap:5px; margin:20px 0; }
+/* Animated heading */
+.animated-heading {
+  position: relative;
+  z-index: 1;
+  font-size: 3.6rem;
+  line-height: 1.05;
+  margin: 0;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #fff 0%, #7c3aed 35%, #06b6d4 70%, #fff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite, floaty 6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes floaty {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* GAMES GRID: force 3 columns on desktop so 6 cards are 3x2 */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: stretch; /* stretch grid items so cards have equal height */
+  justify-items: center; /* center cards horizontally in each column */
+  padding: 0 10px 40px;
+}
+
+/* ensure grid items (cards) stretch to equal heights */
+.games-grid > * { align-self: stretch; }
+
+/* GAME CARD */
+.game-card {
+  background: linear-gradient(180deg, var(--card-bg), rgba(255,255,255,0.01));
+  padding: 20px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  min-height: 160px;
+}
+
+.game-card h3 { font-size: 1.25rem; margin: 0 0 8px; color: #e6f0ff; }
+.game-card p { font-size: 0.97rem; margin: 0; color: var(--muted); }
+.btn { display: inline-block; margin-top: 14px; padding: 8px 14px; background: var(--accent); color: #042029; border-radius: 8px; text-decoration: none; font-weight: 600; }
+
+/* responsive fallbacks */
+@media (max-width: 900px) {
+  .games-grid { grid-template-columns: repeat(2, minmax(200px, 1fr)); }
+  .animated-heading { font-size: 2.8rem; }
+}
+@media (max-width: 520px) {
+  .games-grid { grid-template-columns: 1fr; }
+  .hero { padding: 30px 16px; }
+  .animated-heading { font-size: 2.2rem; }
+}
+
+/* game-specific smaller grids (kept concise) */
+.board { display: grid; grid-template-columns: repeat(3,80px); gap:5px; margin:20px 0; }
 .cell { width:80px; height:80px; font-size:32px; background:#1e293b; border:none; border-radius:4px; color:#38bdf8; }
-
 .memory-grid { display:grid; grid-template-columns:repeat(4,70px); gap:10px; margin:20px 0; }
 .memory-card { width:70px; height:70px; font-size:28px; background:#1e293b; border:none; border-radius:6px; color:#f8fafc; }
-
 .snake-grid { display:grid; gap:2px; background:#1e293b; padding:4px; margin:20px auto; max-width:500px; }
 .cell { width:20px; height:20px; }
 .cell.snake { background:#38bdf8; }
