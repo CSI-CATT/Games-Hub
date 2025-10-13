@@ -36,12 +36,7 @@ export default function TicTacToe() {
 
   return (
     <div className="container">
-      <div className="nav">
-        <a href="#" className="logo">Games Hub</a>
-        <div className="nav-links">
-          <a href="#" className="active">Tic Tac Toe</a>
-        </div>
-      </div>
+    
 
       <div className="hero">
         <h1>Tic Tac Toe</h1>
