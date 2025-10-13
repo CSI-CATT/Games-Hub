@@ -5,8 +5,7 @@ export default function Home() {
   return (
     <div>
       <header className="hero">
-        <h1>Welcome to Fun Games Hub 🎉</h1>
-        <p>A hub of fun games made for Hacktoberfest contributions!</p>
+        <h1 className="animated-heading">Welcome to Fun Games Hub 🎉</h1>
       </header>
 
       <section className="games-grid">
