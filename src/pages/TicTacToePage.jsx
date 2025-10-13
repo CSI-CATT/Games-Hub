@@ -1,5 +1,5 @@
 import React from 'react'
-import TicTacToe from '../games/tictactoe/TicTacToe'
+import TicTacToe from '../games/TicTacToe/TicTacToe'
 
 export default function TicTacToePage() {
   return (

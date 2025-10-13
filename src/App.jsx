@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import TicTacToePage from './pages/TicTacToePage'
 import MemoryPage from './pages/MemoryPage'
 import SnakePage from './pages/SnakePage'
+import TypingSpeedGamePage from './pages/TypingSpeedGamePage'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/tictactoe" element={<TicTacToePage />} />
           <Route path="/memory" element={<MemoryPage />} />
           <Route path="/snake" element={<SnakePage />} />
+          <Route path="/typing-speed" element={<TypingSpeedGamePage />} />
         </Routes>
       </main>
     </div>
