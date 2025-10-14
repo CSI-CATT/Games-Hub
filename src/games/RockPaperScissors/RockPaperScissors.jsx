@@ -15,7 +15,7 @@ const WIN_CONDITIONS = {
 const choiceKeys = Object.keys(CHOICES);
 
 export default function App() {
-    
+
     const [playerChoice, setPlayerChoice] = useState(null);
     const [computerChoice, setComputerChoice] = useState(null);
     const [result, setResult] = useState(null); // 'win', 'lose', 'tie'
