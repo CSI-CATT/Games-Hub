@@ -13,7 +13,7 @@ export default function App() {
   return (
     <div>
       <Nav />
-      <main className="container">
+      <main className="">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/tictactoe" element={<TicTacToePage />} />
