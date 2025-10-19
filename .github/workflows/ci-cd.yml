@@ -10,6 +10,7 @@ on:
 
 jobs:
   build-and-deploy:
+    if: github.repository == 'CSI-CATT/Games-Hub'  # only run on the original repo
     runs-on: ubuntu-latest
 
     steps:
