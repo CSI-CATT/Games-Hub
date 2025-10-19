@@ -24,19 +24,19 @@ This repository is part of Hacktoberfest 🍂, and contributions are highly enco
 5. Other Utilities: None (can be added by contributors per game)
 
 # 📂 Project Structure
-fun-games-hub/
-├── public/                 # Static assets (favicon, images)
-├── src/
-│   ├── components/         # Shared UI components (Nav, GameCard)
-│   ├── pages/              # Game pages (TicTacToePage, MemoryPage, SnakePage)
-│   └── games/              # Game implementations (TicTacToe, Memory, Snake)
-├── index.html
-├── styles.css              # Global styles
-├── package.json
-├── vite.config.js
-├── README.md
-├── CONTRIBUTING.md
-└── ISSUE_TEMPLATE.md
+  fun-games-hub/
+  ├── public/                 # Static assets (favicon, images)
+  ├── src/
+  │   ├── components/         # Shared UI components (Nav, GameCard)
+  │   ├── pages/              # Game pages (TicTacToePage, MemoryPage, SnakePage)
+  │   └── games/              # Game implementations (TicTacToe, Memory, Snake)
+  ├── index.html
+  ├── styles.css              # Global styles
+  ├── package.json
+  ├── vite.config.js
+  ├── README.md
+  ├── CONTRIBUTING.md
+  └── ISSUE_TEMPLATE.md
 
 
 # Contributor Guidelines:
