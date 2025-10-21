@@ -8,6 +8,7 @@ import SnakePage from './pages/SnakePage'
 import TypingSpeedGamePage from './pages/TypingSpeedGamePage'
 import WordScramblePage from './pages/WordScramblePage' // 1. IMPORT YOUR NEW PAGE
 import RockPaperScissors from './pages/RockPaperScissors'
+import Wordle from './games/Wordle/Wordle'
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           {/* 2. ADD THE ROUTE FOR YOUR GAME */}
           <Route path="/word-scramble" element={<WordScramblePage />} /> 
           <Route path="/RockPaperScissors" element={<RockPaperScissors />} />
+          <Route path="/Wordle" element={<Wordle />} />
         </Routes>
       </main>
     </div>

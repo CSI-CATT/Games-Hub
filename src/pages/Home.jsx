@@ -6,6 +6,7 @@ import SnakeIcon from '../assets/snake.svg';
 import TypingIcon from '../assets/keyboard.svg';
 import WordScrambleIcon from '../assets/notebook.svg';
 import RPSIcon from '../assets/scissors.svg';
+import WordleIcon from '../assets/wordle.svg'
 // svg icons taken from the website https://game-icons.net/
 
 export default function Home() {
@@ -31,6 +32,7 @@ export default function Home() {
           imageUrl={WordScrambleIcon}
         />
         <GameCard title="Rock Paper Scissors" desc="Classic Rock Paper Scissors game" to="/RockPaperScissors" className="aspect-square"imageUrl={RPSIcon}/>
+        <GameCard title="Wordle Game" desc="A word guessing game" to="/Wordle" className="aspect-square"imageUrl={WordleIcon}/>
         </div>
       </section>
 

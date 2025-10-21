@@ -1,0 +1,171 @@
+/* File: src/wordle.css */
+
+:root {
+  --bg: #0f1724;
+  --panel: #0b1220;
+  --tile: #0f1724;
+  --text: #e6eef8;
+  --absent: #3a3a3c;
+  --present: #b59f3b;
+  --correct: #538d4e;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial;
+  background: var(--bg);
+  color: var(--text);
+  padding: 18px;
+}
+.wordle-root {
+  max-width: 520px;
+  margin: 8px auto;
+  padding: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+  border-radius: 12px;
+}
+.wordle-root h1 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  text-align: center;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 0px;
+  margin: 20px auto;
+}
+
+.row {
+    display: grid;
+    grid-auto-flow: row;
+    align-items:end;
+    gap: 10px;
+}
+
+
+.cell {
+  width: 128px;
+  height: 128px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1;
+  background: var(--tile);
+  border-radius: 6px;
+  text-transform: uppercase;
+  color: white;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.1s;
+}
+
+
+.cell.correct {
+  background: var(--correct);
+  border-color: transparent;
+  color: white;
+}
+.cell.present {
+  background: var(--present);
+  border-color: transparent;
+  color: white;
+}
+.cell.absent {
+  background: var(--absent);
+  border-color: transparent;
+  color: white;
+}
+
+.keyboard {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+.kb-row {
+  display: flex;
+  gap: 6px;
+}
+.key {
+  padding: 10px 8px;
+  border-radius: 6px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.06);
+  min-width: 34px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.key.present {
+  background: var(--present);
+  color: white;
+}
+.key.correct {
+  background: var(--correct);
+  color: white;
+}
+.key.absent {
+  background: var(--absent);
+  color: white;
+}
+.key.wide {
+  min-width: 56px;
+}
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+.controls button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  cursor: pointer;
+}
+.message {
+  height: 22px;
+  margin-top: 8px;
+  color: #ffd;
+  text-align: center;
+}
+.attribution {
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: 0.7;
+  text-align: center;
+}
+.hint {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+@media (max-width: 500px) {
+  .row {
+    grid-template-columns: repeat(5, 48px);
+    gap: 6px;
+  }
+  .cell {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+  }
+}
+
