@@ -64,7 +64,7 @@ export default function Wordle() {
     }
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [col, row, grid, gameOver]);
+  }, [col, row, grid, gameOver, solution]); // Added solution to dependency array for completeness
 
   function handleChar(letter) {
     if (col >= WORD_LENGTH) return;
@@ -158,19 +158,28 @@ export default function Wordle() {
   return (
     <div className="wordle-root">
       <h1>Wordle — React (Dictionary API)</h1>
+
+      <div className="wordle-instructions">
+        <p><strong>How to Play Wordle:</strong></p>
+        <ul>
+          <li>Guess the WORDLE in 6 tries.</li>
+          <li>Each guess must be a valid 5-letter word.</li>
+          <li>Hit the enter button to submit your guess.</li>
+          <li>After each guess, the color of the tiles will change to show how close your guess was to the word.</li>
+          <li><span className="correct">Green</span> means the letter is in the word and in the correct spot.</li>
+          <li><span className="present">Yellow</span> means the letter is in the word but in the wrong spot.</li>
+          <li><span className="absent">Gray</span> means the letter is not in the word at all.</li>
+        </ul>
+      </div>
+
       <div className="board" role="grid" aria-label="Wordle board">
-        {grid[0].map((_, ci) => (
-          <div key={ci} className="row" role="row">
-            {grid.map((r, ri) => {
-              const stat = statuses[ri] ? statuses[ri][ci] : null;
+        {grid.map((boardRow, rowIndex) => (
+          <div key={rowIndex} className="row" role="row">
+            {boardRow.map((letter, colIndex) => {
+              const status = statuses[rowIndex] ? statuses[rowIndex][colIndex] : '';
               return (
-                <div
-                  key={ri}
-                  className={`cell ${stat ? stat : ''}`}
-                  role="gridcell"
-                  aria-selected={stat || false}
-                >
-                  {r[ci]}
+                <div key={colIndex} className={`cell ${status}`} role="gridcell">
+                  {letter}
                 </div>
               );
             })}
@@ -188,7 +197,7 @@ export default function Wordle() {
               <button
                 key={k}
                 className={`key ${usedKeys[k] || ''}`}
-                onClick={() => { if (k === 'Enter') return handleEnter(); handleChar(k); }}
+                onClick={() => handleChar(k)}
               >
                 {k}
               </button>
