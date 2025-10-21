@@ -32,6 +32,6 @@ body {
 .memory-card { width:70px; height:70px; font-size:28px; background:#1e293b; border:none; border-radius:6px; color:#f8fafc; }
 
 .snake-grid { display:grid; gap:2px; background:#1e293b; padding:4px; margin:20px auto; max-width:500px; }
-.cell { width:20px; height:20px; }
+.cell { width:45px; height:45px; }
 .cell.snake { background:#38bdf8; }
 .cell.food { background:#f97316; }

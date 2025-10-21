@@ -38,6 +38,8 @@ body {
   font-size: 20px;
   text-align: center;
 }
+
+
 .board {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -51,45 +53,10 @@ body {
     display: grid;
     grid-auto-flow: row;
     align-items:end;
-    gap: 10px;
+    gap: 12px;
 }
 
 
-.cell {
-  width: 128px;
-  height: 128px;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 1;
-  background: var(--tile);
-  border-radius: 6px;
-  text-transform: uppercase;
-  color: white;
-  box-sizing: border-box;
-  flex-shrink: 0;
-  transition: background 0.2s, transform 0.1s;
-}
-
-
-.cell.correct {
-  background: var(--correct);
-  border-color: transparent;
-  color: white;
-}
-.cell.present {
-  background: var(--present);
-  border-color: transparent;
-  color: white;
-}
-.cell.absent {
-  background: var(--absent);
-  border-color: transparent;
-  color: white;
-}
 
 .keyboard {
   margin-top: 12px;
@@ -169,3 +136,47 @@ body {
   }
 }
 
+.restartButtonWordle{
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e6eef8;
+  cursor: pointer;
+} 
+
+.delBtnWordle{
+   padding: 10px 8px;
+  border-radius: 6px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.06);
+  min-width: 56px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #e6eef8;
+  cursor: pointer;
+}
+
+.cellWordle {
+  padding: 10px 8px;
+  border-radius: 6px;
+  border: 0;
+  min-width: 34px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: white;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.06); /* default */
+}
+
+.cellWordle.correct {
+  background: #538d4e;
+}
+
+.cellWordle.present {
+  background: #b59f3b;
+}
+
+.cellWordle.absent {
+  background: #3a3a3c;
+}
