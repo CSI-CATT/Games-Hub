@@ -7,9 +7,12 @@ export default function GameCard({ title, desc, to, className, imageUrl }) {
       <h3 className="text-xl font-bold">{title}</h3>
       <p className="text-sm flex-grow">{desc}</p>
       <img src={imageUrl} alt="game icon" className='w-[80%] self-center' />
-      <Link to={to} className="mt-4 bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 text-center">
+     <Link 
+        to={to} 
+        className="mt-4 bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 text-center transform hover:scale-105 transition-transform duration-200"
+      >
         Play
-      </Link>
+    </Link>
     </div>
   )
 }

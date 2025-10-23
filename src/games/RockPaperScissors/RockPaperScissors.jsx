@@ -20,6 +20,7 @@ export default function App() {
     const [computerChoice, setComputerChoice] = useState(null);
     const [result, setResult] = useState(null); // 'win', 'lose', 'tie'
     const [score, setScore] = useState({ player: 0, computer: 0, tie: 0 });
+    
 
     const handlePlayerChoice = (choice) => {
         setPlayerChoice(choice);
@@ -115,7 +116,7 @@ export default function App() {
                         </button>
                     ))}
                 </div>
-
+                <br></br>
                 <div className="text-center">
                     <button
                         onClick={resetGame}
