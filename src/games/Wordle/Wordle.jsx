@@ -157,20 +157,54 @@ export default function Wordle() {
 
   return (
     <div className="wordle-root">
-      <h1>Wordle — React (Dictionary API)</h1>
-      <div className="board" role="grid" aria-label="Wordle board">
-        {grid[0].map((_, ci) => (
-          <div key={ci} className="row" role="row">
-            {grid.map((r, ri) => {
+      <h1 style={{margin: '0 0 12px', fontSize: '20px', textAlign: 'center'}}>
+        Wordle — React (Dictionary API)
+      </h1>
+
+      <div style={{fontSize: '14px', color: '#e6eef8', marginBottom: '12px', textAlign: 'center'}}>
+        <p style={{margin: 0}}>Guess the 5-letter word in {MAX_ROWS} tries. You can only try words that exist!</p>
+        <p style={{margin: 0}}>🟢 Green = correct place, 🟡 Yellow = correct letter wrong place,</p>
+        <p>⚪ Gray = not in word.</p>
+      </div>
+      
+      <div style={{
+        display: 'grid',
+        gridTemplateRows: `repeat(${MAX_ROWS}, 1fr)`,
+        gap: '5px',
+        margin: '20px auto',
+        width: 'fit-content'
+      }}>
+        {grid.map((rowData, ri) => (
+          <div key={ri} style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(5, 62px)',
+            gap: '5px'
+          }}>
+            {rowData.map((letter, ci) => {
               const stat = statuses[ri] ? statuses[ri][ci] : null;
+              const bgColor = stat === 'correct' ? '#538d4e' : 
+                            stat === 'present' ? '#b59f3b' : 
+                            stat === 'absent' ? '#3a3a3c' : '#0f1724';
               return (
                 <div
-                  key={ri}
-                  className={`cell ${stat ? stat : ''}`}
-                  role="gridcell"
-                  aria-selected={stat || false}
+                  key={ci}
+                  style={{
+                    width: '62px',
+                    height: '62px',
+                    border: stat ? 'none' : '2px solid rgba(255, 255, 255, 0.15)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 700,
+                    fontSize: '32px',
+                    background: bgColor,
+                    borderRadius: '6px',
+                    textTransform: 'uppercase',
+                    color: 'white',
+                    transition: 'background 0.2s, transform 0.1s'
+                  }}
                 >
-                  {r[ci]}
+                  {letter}
                 </div>
               );
             })}
@@ -178,32 +212,71 @@ export default function Wordle() {
         ))}
       </div>
 
-      <div className="message">{message}</div>
+      <div style={{height: '22px', marginTop: '8px', color: '#ffd', textAlign: 'center'}}>
+        {message}
+      </div>
 
-      <div className="keyboard">
+      <div style={{marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center'}}>
         {keyboardRows.map((rowKeys, idx) => (
-          <div key={idx} className="kb-row">
-            {idx === 2 && <button className="key wide" onClick={handleEnter}>Enter</button>}
-            {rowKeys.split('').map(k => (
-              <button
-                key={k}
-                className={`key ${usedKeys[k] || ''}`}
-                onClick={() => { if (k === 'Enter') return handleEnter(); handleChar(k); }}
+          <div key={idx} style={{display: 'flex', gap: '6px'}}>
+            {idx === 2 && (
+              <button 
+                onClick={handleEnter}
+                style={{
+                  padding: '10px 8px',
+                  borderRadius: '6px',
+                  border: 0,
+                  background: 'rgba(255, 255, 255, 0.06)',
+                  minWidth: '56px',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  color: '#e6eef8',
+                  cursor: 'pointer'
+                }}
               >
-                {k}
+                Enter
               </button>
-            ))}
-            {idx === 2 && <button className="key wide" onClick={handleBackspace}>Del</button>}
+            )}
+            {rowKeys.split('').map(k => {
+              const keyStatus = usedKeys[k];
+            
+              return (
+                <button
+                  key={k}
+                  onClick={() => handleChar(k)}
+                  className='cellWordle'
+                >
+                  {k}
+                </button>
+              );
+            })}
+            {idx === 2 && (
+              <button 
+                onClick={handleBackspace}
+                className='delBtnWordle'
+              >
+                Del
+              </button>
+            )}
           </div>
         ))}
       </div>
 
-      <div className="controls">
-        <button onClick={restart}>Restart</button>
-        <div className="hint">Solution (for dev): {gameOver ? solution : '?????'}</div>
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px'}}>
+        <button 
+          onClick={restart}
+          className='restartButtonWordle'
+        >
+          Restart
+        </button>
+        <div style={{fontSize: '13px', opacity: 0.85}}>
+          Solution (for dev): {gameOver ? solution : '?????'}
+        </div>
       </div>
 
-      <div className="attribution">Keys: physical keyboard supported. Words validated via Dictionary API.</div>
+      <div style={{marginTop: '10px', fontSize: '12px', opacity: 0.7, textAlign: 'center'}}>
+        Keys: physical keyboard supported. Words validated via Dictionary API.
+      </div>
     </div>
   );
 }

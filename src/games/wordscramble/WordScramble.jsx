@@ -58,17 +58,22 @@ export default function WordScramble() {
     e.preventDefault();
     if (!userInput.trim()) return;
 
-    if (userInput.toLowerCase() === currentWord.toLowerCase()) {
+   if (userInput.toLowerCase() === currentWord.toLowerCase()) {
       setScore(prevScore => prevScore + 10);
       setMessage('Correct! Well done!');
       setIsCorrect(true);
-      // Automatically start the next round after a short delay
+      // Clear message and start new round
       setTimeout(() => {
         setupNewRound();
       }, 1500);
     } else {
       setMessage('Incorrect. Try again!');
       setIsCorrect(false);
+      // Clear message after 3 seconds
+      setTimeout(() => {
+        setMessage('');
+        setIsCorrect(null);
+      }, 3000);
     }
   };
 
@@ -83,7 +88,7 @@ export default function WordScramble() {
   return (
     <div className="word-scramble-game">
       <div className="game-header">
-        <h2>Unscramble the Word!</h2>
+        <p className='unscrambleTitle'>Unscramble the Word!</p>
         <div className="score">Score: {score}</div>
       </div>
       
