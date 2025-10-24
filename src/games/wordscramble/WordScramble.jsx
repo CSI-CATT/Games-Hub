@@ -1,55 +1,62 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import './WordScramble.css'; // We will create this CSS file next
+import React, { useState, useEffect, useCallback } from "react";
+import "./WordScramble.css";
 
-// A small, expandable list of words for the game
-const wordList = [
-  'react', 'vite', 'javascript', 'tailwind', 'github', 'component',
-  'developer', 'keyboard', 'monitor', 'internet', 'network', 'contribution'
+const wordsWithHints = [
+  { word: "react", hint: "A popular JavaScript library for building UIs" },
+  { word: "vite", hint: "A fast frontend build tool and dev server" },
+  { word: "javascript", hint: "The programming language of the web" },
+  { word: "tailwind", hint: "A utility-first CSS framework" },
+  { word: "github", hint: "A platform for hosting and sharing code" },
+  { word: "component", hint: "A reusable piece of UI in React" },
+  { word: "developer", hint: "Someone who writes and builds software" },
+  { word: "keyboard", hint: "A device used to type text" },
+  { word: "monitor", hint: "A screen used to display output" },
+  { word: "internet", hint: "A global network connecting computers" },
+  { word: "network", hint: "A group of connected systems or people" },
+  { word: "contribution", hint: "An act of adding code or help to a project" },
 ];
 
-// Helper function to scramble a word using the Fisher-Yates shuffle algorithm
 function scrambleWord(word) {
-  const a = word.split('');
+  const a = word.split("");
   const n = a.length;
 
   for (let i = n - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]]; // Swap elements
+    [a[i], a[j]] = [a[j], a[i]];
   }
 
-  // Ensure the scrambled word is not the same as the original
-  const scrambled = a.join('');
+  const scrambled = a.join("");
   return scrambled === word ? scrambleWord(word) : scrambled;
 }
 
 export default function WordScramble() {
-  const [currentWord, setCurrentWord] = useState('');
-  const [scrambledWord, setScrambledWord] = useState('');
-  const [userInput, setUserInput] = useState('');
-  const [message, setMessage] = useState('');
+  const [currentWord, setCurrentWord] = useState("");
+  const [currentHint, setCurrentHint] = useState("");
+  const [scrambledWord, setScrambledWord] = useState("");
+  const [userInput, setUserInput] = useState("");
+  const [message, setMessage] = useState("");
   const [score, setScore] = useState(0);
   const [isCorrect, setIsCorrect] = useState(null);
 
-  // Function to set up a new round
   const setupNewRound = useCallback(() => {
-    const newWord = wordList[Math.floor(Math.random() * wordList.length)];
-    setCurrentWord(newWord);
-    setScrambledWord(scrambleWord(newWord));
-    setUserInput('');
-    setMessage('');
+    const randomItem =
+      wordsWithHints[Math.floor(Math.random() * wordsWithHints.length)];
+    setCurrentWord(randomItem.word);
+    setCurrentHint(randomItem.hint);
+    setScrambledWord(scrambleWord(randomItem.word));
+    setUserInput("");
+    setMessage("");
     setIsCorrect(null);
   }, []);
 
-  // Initialize the game on the first render
   useEffect(() => {
     setupNewRound();
   }, [setupNewRound]);
 
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
-    // Clear message when user starts typing
     if (message) {
-      setMessage('');
+      setMessage("");
       setIsCorrect(null);
     }
   };
@@ -59,23 +66,18 @@ export default function WordScramble() {
     if (!userInput.trim()) return;
 
     if (userInput.toLowerCase() === currentWord.toLowerCase()) {
-      setScore(prevScore => prevScore + 10);
-      setMessage('Correct! Well done!');
+      setScore((prev) => prev + 10);
+      setMessage("✅ Correct! Great job!");
       setIsCorrect(true);
-      // Automatically start the next round after a short delay
-      setTimeout(() => {
-        setupNewRound();
-      }, 1500);
+      setTimeout(setupNewRound, 1500);
     } else {
-      setMessage('Incorrect. Try again!');
+      setMessage("❌ Incorrect. Try again!");
       setIsCorrect(false);
     }
   };
 
   const handleSkip = () => {
-    // Optionally penalize for skipping
-    // setScore(prevScore => prevScore > 0 ? prevScore - 1 : 0);
-    setMessage('Skipped! Here is a new word.');
+    setMessage("⏩ Skipped! Here’s a new word.");
     setIsCorrect(null);
     setupNewRound();
   };
@@ -83,20 +85,25 @@ export default function WordScramble() {
   return (
     <div className="word-scramble-game">
       <div className="game-header">
-        <h2>Unscramble the Word!</h2>
+        <h2>🧩 Unscramble the Word!</h2>
         <div className="score">Score: {score}</div>
       </div>
-      
+
       <div className="scrambled-word-container">
         <p className="scrambled-word">{scrambledWord}</p>
+        <p className="hint">
+          <strong>Hint:</strong> {currentHint}
+        </p>
       </div>
 
       {message && (
-        <p className={`message ${isCorrect === true ? 'correct' : isCorrect === false ? 'incorrect' : ''}`}>
+        <p
+          className={`message ${isCorrect ? "correct" : isCorrect === false ? "incorrect" : ""}`}
+        >
           {message}
         </p>
       )}
-      
+
       <form onSubmit={handleSubmit} className="input-area">
         <input
           type="text"
@@ -104,14 +111,22 @@ export default function WordScramble() {
           onChange={handleInputChange}
           placeholder="Your guess..."
           className="guess-input"
-          disabled={isCorrect === true} // Disable input after correct guess
+          disabled={isCorrect === true}
         />
-        <button type="submit" className="btn submit-btn" disabled={isCorrect === true}>
+        <button
+          type="submit"
+          className="btn submit-btn"
+          disabled={isCorrect === true}
+        >
           Guess
         </button>
       </form>
 
-      <button onClick={handleSkip} className="btn skip-btn" disabled={isCorrect === true}>
+      <button
+        onClick={handleSkip}
+        className="btn skip-btn"
+        disabled={isCorrect === true}
+      >
         Skip Word
       </button>
     </div>
