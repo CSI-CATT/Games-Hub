@@ -157,6 +157,29 @@ body {
   opacity: 0.85;
 }
 
+.powerups {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.powerups button {
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.powerups button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+
 @media (max-width: 500px) {
   .row {
     grid-template-columns: repeat(5, 48px);
