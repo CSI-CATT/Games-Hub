@@ -49,6 +49,9 @@ export default function Wordle() {
   const [message, setMessage] = useState('');
   const [gameOver, setGameOver] = useState(false);
   const [usedKeys, setUsedKeys] = useState({});
+  const [bombUsed, setBombUsed] = useState(false);
+  const [scanUsed, setScanUsed] = useState(false);
+  const [scansLeft, setScansLeft] = useState(3);
 
   useEffect(() => {
     pickSolution().then(setSolution);
@@ -142,6 +145,67 @@ export default function Wordle() {
       });
   }
 
+  function useBomb() {
+    if (bombUsed || gameOver) return;
+    setBombUsed(true);
+
+    const allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    const revealCount = 5; // number of random wrong letters to reveal
+    const wrongLetters = [];
+
+    while (wrongLetters.length < revealCount) {
+      const rand = allLetters[Math.floor(Math.random() * allLetters.length)];
+      if (!solution.includes(rand) && !wrongLetters.includes(rand)) {
+        wrongLetters.push(rand);
+      }
+    }
+
+    setUsedKeys(prev => {
+      const copy = { ...prev };
+      wrongLetters.forEach(l => { copy[l] = 'absent'; });
+      return copy;
+    });
+
+    setMessage(`💣 Bomb: ${wrongLetters.join(', ')} are NOT in the word!`);
+    setTimeout(() => setMessage(''), 2500);
+  }
+
+  function useScan() {
+    if (gameOver) return;
+
+    if (scansLeft <= 0) {
+      setMessage('No scans left!');
+      setTimeout(() => setMessage(''), 1500);
+      return;
+    }
+
+    // Find letters that are in the solution but not yet revealed on keyboard
+    const unrevealedInWord = solution.split('').filter(
+      l => usedKeys[l] !== 'correct'
+    );
+
+    if (unrevealedInWord.length === 0) {
+      setMessage('🔍 All correct letters already revealed!');
+      setTimeout(() => setMessage(''), 1500);
+      return;
+    }
+
+    const letter = unrevealedInWord[Math.floor(Math.random() * unrevealedInWord.length)];
+
+    // Update keyboard color for that letter to "correct"
+    setUsedKeys(prev => ({
+      ...prev,
+      [letter]: 'correct'
+    }));
+
+    // Decrease scan count
+    setScansLeft(prev => prev - 1);
+
+    setMessage(`🔍 Scan: The word contains '${letter}'! (${scansLeft - 1} left)`);
+    setTimeout(() => setMessage(''), 2000);
+  }
+
+
   function restart() {
     pickSolution().then(newWord => setSolution(newWord));
     setGrid(Array(MAX_ROWS).fill('').map(() => Array(WORD_LENGTH).fill('')));
@@ -197,6 +261,12 @@ export default function Wordle() {
           </div>
         ))}
       </div>
+
+      <div className="powerups">
+        <button onClick={useBomb} disabled={bombUsed}>💣 Bomb</button>
+        <button onClick={useScan} disabled={scanUsed}>🔍 Scan</button>
+      </div>
+
 
       <div className="controls">
         <button onClick={restart}>Restart</button>
