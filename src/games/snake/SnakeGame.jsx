@@ -17,10 +17,16 @@ export default function SnakeGame() {
   const [running, setRunning] = useState(false);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
+  const [showRules, setShowRules] = useState(false);
 
   // 🎮 Handle key controls
   useEffect(() => {
     const handleKey = (e) => {
+      // Prevent default behavior for arrow keys and space
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "].includes(e.key)) {
+        e.preventDefault();
+      }
+      
       if (e.key === "ArrowUp" && dir.y !== 1) setDir({ x: 0, y: -1 });
       if (e.key === "ArrowDown" && dir.y !== -1) setDir({ x: 0, y: 1 });
       if (e.key === "ArrowLeft" && dir.x !== 1) setDir({ x: -1, y: 0 });
@@ -72,6 +78,123 @@ export default function SnakeGame() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 text-white p-4">
+      <style>{`
+        .rules-button {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background-color: #fbbf24;
+          color: #000;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 8px;
+          font-weight: bold;
+          cursor: pointer;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+          transition: all 0.2s;
+          z-index: 1000;
+        }
+        
+        .rules-button:hover {
+          background-color: #fcd34d;
+          transform: translateY(-2px);
+        }
+        
+        .rules-modal {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: #1f2937;
+          border: 3px solid #4b5563;
+          border-radius: 16px;
+          padding: 30px;
+          max-width: 400px;
+          width: 90%;
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+          z-index: 1001;
+        }
+        
+        .rules-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.7);
+          z-index: 1000;
+        }
+        
+        .rules-title {
+          color: #fbbf24;
+          font-size: 24px;
+          font-weight: bold;
+          margin-bottom: 20px;
+          text-align: center;
+        }
+        
+        .rules-list {
+          list-style: none;
+          padding: 0;
+          margin: 20px 0;
+        }
+        
+        .rules-list li {
+          margin: 12px 0;
+          padding-left: 25px;
+          position: relative;
+          line-height: 1.6;
+        }
+        
+        .rules-list li:before {
+          content: "•";
+          position: absolute;
+          left: 8px;
+          color: #fbbf24;
+          font-size: 20px;
+        }
+        
+        .close-button {
+          background-color: #ef4444;
+          color: white;
+          border: none;
+          padding: 10px 24px;
+          border-radius: 8px;
+          font-weight: bold;
+          cursor: pointer;
+          width: 100%;
+          margin-top: 20px;
+          transition: all 0.2s;
+        }
+        
+        .close-button:hover {
+          background-color: #dc2626;
+        }
+      `}</style>
+      
+      <button className="rules-button" onClick={() => setShowRules(true)}>
+        📖 Rules
+      </button>
+      
+      {showRules && (
+        <>
+          <div className="rules-overlay" onClick={() => setShowRules(false)}></div>
+          <div className="rules-modal">
+            <h2 className="rules-title">🎯 How to Play</h2>
+            <ul className="rules-list">
+              <li>Use <strong>Arrow Keys</strong> to move the snake</li>
+              <li>Press <strong>Space</strong> or click "Pause Game" to pause/resume</li>
+              <li>Eat <strong style={{color: '#ef4444'}}>red dots</strong> to grow and score points</li>
+              <li>Avoid colliding with yourself or the game ends</li>
+              <li>The snake wraps around the edges of the grid</li>
+            </ul>
+            <button className="close-button" onClick={() => setShowRules(false)}>
+              Close
+            </button>
+          </div>
+        </>
+      )}
+      
       <h1 className="text-4xl font-extrabold text-yellow-300 mb-4 drop-shadow-md">
         🐍 Snake Game
       </h1>
@@ -134,24 +257,6 @@ export default function SnakeGame() {
             {running ? "⏸️ Pause Game" : "▶️ Start Game"}
           </button>
         )}
-
-        {/* Instructions */}
-        <div className="mt-4 text-sm text-gray-300 max-w-md leading-relaxed text-center">
-          <p className="text-yellow-300 font-semibold mb-2">🎯 Instructions:</p>
-          <ul className="list-disc list-inside text-left space-y-1">
-            <li>
-              Use <b>Arrow Keys</b> to move the snake
-            </li>
-            <li>
-              Press <b>Space</b> or click “Pause Game” to pause/resume
-            </li>
-            <li>
-              Eat <span className="text-red-400 font-semibold">red dots</span>{" "}
-              to grow
-            </li>
-            <li>Avoid colliding with yourself</li>
-          </ul>
-        </div>
       </div>
     </div>
   );
